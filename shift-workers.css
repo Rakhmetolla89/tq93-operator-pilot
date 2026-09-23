@@ -1,0 +1,14 @@
+.workers-card .shift-tabs{display:flex;gap:8px;margin:4px 0 14px}
+.workers-card .shift-tabs button{flex:1;background:#142238;border:1px solid var(--line);padding:10px}
+.workers-card .shift-tabs button.active{border-color:var(--blue);color:#9bcaff;background:#193253}
+.workers-head,.worker-row{display:grid;grid-template-columns:minmax(0,1fr) 155px;gap:10px;align-items:center}
+.workers-head{padding:0 4px 7px;color:#8fc2ff;font-size:13px;border-bottom:1px solid var(--line)}
+.worker-row{padding:9px 4px;border-bottom:1px solid #263852}
+.worker-row:last-child{border-bottom:0}
+.worker-row b{font-size:16px}.worker-row select{margin:0;padding:10px 9px;font-size:14px}
+.worker-status{font-weight:700}.worker-status.status-work{color:#55dfb8}.worker-status.status-away{color:#ffd477}.worker-status.status-sick{color:#ff9f9a}
+.shift-worker-settings{margin-top:18px}.shift-worker-settings .tabs{margin:6px 0 10px}
+.settings-worker-row{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:8px;align-items:center;margin:7px 0}
+.settings-worker-row input{margin:0}.settings-worker-row button{padding:10px;background:#56252e;color:#ffd9d9}
+.workers-actions{display:flex;gap:9px;margin-top:12px}.workers-actions button{flex:1}
+@media(max-width:380px){.workers-head,.worker-row{grid-template-columns:minmax(0,1fr) 132px}.worker-row select{font-size:13px;padding:9px 5px}}

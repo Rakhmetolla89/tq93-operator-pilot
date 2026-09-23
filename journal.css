@@ -1,0 +1,8 @@
+.journal-item{display:block;width:100%;position:relative;text-align:left;color:var(--text);font:inherit}
+.journal-item .journal-open{display:block;margin-top:10px;color:#8fc2ff;font-weight:700}
+.journal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.journal-field{padding:10px 11px;background:#0a1524;border:1px solid var(--line);border-radius:12px;min-width:0}
+.journal-field span{display:block;color:var(--muted);font-size:12px;margin-bottom:3px}
+.journal-field b{display:block;overflow-wrap:anywhere;font-size:14px}
+details summary{cursor:pointer}
+@media(max-width:380px){.journal-grid{grid-template-columns:1fr}}

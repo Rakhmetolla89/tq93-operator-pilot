@@ -1,0 +1,1 @@
+.journal-item-row{display:flex;gap:9px;align-items:stretch;margin:10px 0}.journal-item-row .journal-item{margin:0;flex:1;text-align:left;position:relative;padding-right:84px}.journal-item-row .journal-trash{width:56px;padding:0;background:#56252e;color:#ffd9d9;font-size:21px;border:1px solid #7a3944}.journal-item-row .journal-trash:hover{background:#71313d}
