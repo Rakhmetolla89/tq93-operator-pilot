@@ -1,0 +1,4 @@
+.notification-target{position:relative!important}
+.notification-dot{position:absolute;top:7px;right:8px;width:10px;height:10px;border-radius:50%;background:#ef4444;border:2px solid #fff;box-shadow:0 0 0 2px #ef444466;pointer-events:none}
+.nav .notification-dot{top:0;right:5px}
+.notification-dot-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
