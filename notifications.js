@@ -2,6 +2,7 @@
 (function(){
   const API='https://tq93-suggestions-service.akmoldaev-akhat.chatgpt.site';
   const MAP_VERSION='2026-09-27c';
+  const DIAGRAM_VERSION='2026-09-27c';
   const key=name=>`tq93Notification:${name}:${user?.tabNo||'guest'}`;
   const get=name=>localStorage.getItem(key(name))||'';
   const set=(name,value)=>localStorage.setItem(key(name),value);
@@ -13,12 +14,14 @@
   const clear=(element)=>element?.querySelectorAll('.notification-dot,.notification-dot-label').forEach(node=>node.remove());
   const suggestionButton=()=>document.querySelector('.suggestion-button');
   const mapButton=()=>document.querySelector('.nav button[onclick="go(\'map\')"]');
+  const diagramButton=()=>document.querySelector('.nav button[onclick="go(\'diagram\')"]');
   const roundsButton=()=>[...document.querySelectorAll('button')].find(button=>button.textContent.replace(/\s+/g,' ').includes('Обход туралы'));
   const roundSignature=()=>records().filter(row=>row.tabNo&&row.tabNo!==user?.tabNo).map(row=>row.id).sort().join('|');
 
   function refreshLocalBadges(){
     if(!user||user.role==='author')return;
     if(get('map')!==MAP_VERSION)dot(mapButton(),'Жаңа карта бар');else clear(mapButton());
+    if(get('diagrams')!==DIAGRAM_VERSION)dot(diagramButton(),'Жаңа сызбалар бар');else clear(diagramButton());
     if(user.role==='master'){
       const signature=roundSignature();
       if(signature&&get('rounds')!==signature)dot(roundsButton(),'Оператор обход толтырды');else clear(roundsButton());
@@ -53,6 +56,7 @@
   const previousGo=go;
   go=function(nextPage){
     if(nextPage==='map')set('map',MAP_VERSION);
+    if(nextPage==='diagram')set('diagrams',DIAGRAM_VERSION);
     if(nextPage==='rounds'&&user?.role==='master')set('rounds',roundSignature());
     previousGo(nextPage);
   };
