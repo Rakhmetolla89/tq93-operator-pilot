@@ -1,1 +1,19 @@
-{"name":"МГӨБ-1 · МГӨЦ-8 · ТҚ-93","short_name":"ТҚ-93","start_url":"./","display":"standalone","background_color":"#07101d","theme_color":"#07101d"}
+{
+  "id": "./",
+  "name": "МГӨБ-1 · МГӨЦ-8 · ТҚ-93",
+  "short_name": "ТҚ-93",
+  "description": "ТҚ-93 оператор обходы және кезекшілік журналы",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07101d",
+  "theme_color": "#07101d",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
