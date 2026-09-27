@@ -91,3 +91,6 @@
     finally{if(button){button.disabled=false;button.textContent='Excel-ге экспорттау';}}
   };
 })();
+
+/* The current exporter is loaded after this legacy file to use the template map. */
+(function(){const script=document.createElement('script');script.src='journal-export-map.js';document.head.appendChild(script);})();
