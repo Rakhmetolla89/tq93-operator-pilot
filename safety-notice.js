@@ -13,7 +13,7 @@
 
   window.openSafetyBriefing=function(){
     const data=read();
-    shell(`<button class="secondary" onclick="go('home')">← Басты бет</button><h1>${escape(data.title)}</h1><section class="card safety-hero"><b>Назар аударыңыз!</b><p>${escape(data.intro)}</p></section><section class="card"><h3>Жеке қорғану құралдары</h3>${data.ppe.map(item=>`<div class="safety-check"><span>✓</span><div>${escape(item)}</div></div>`).join('')}</section><section class="card"><h3>Станок-качалка маңындағы қауіпсіздік</h3><ol class="safety-list">${data.steps.map(item=>`<li>${escape(item)}</li>`).join('')}</ol></section><button class="good wide" onclick="continueToRounds()">Түсіндім, обходты бастау</button><p class="section-note">Талаптарды сақтаңыз. Қауіпті жағдай байқалса, жұмысты тоқтатып, шеберге хабарлаңыз.</p>`);
+    shell(`<button class="secondary" onclick="go('home')">← Басты бет</button><h1>${escape(data.title)}</h1><section class="card safety-hero"><b>Назар аударыңыз!</b><p>${escape(data.intro)}</p></section><section class="card"><h3>Жеке қорғану құралдары</h3>${data.ppe.map(item=>`<div class="safety-check"><span>✓</span><div>${escape(item)}</div></div>`).join('')}</section><section class="card"><h3>Станок-качалка маңындағы қауіпсіздік</h3><ol class="safety-list">${data.steps.map(item=>`<li>${escape(item)}</li>`).join('')}</ol></section><button class="good wide" onclick="continueToRounds()">Түсіндім, обходты бастау</button><p class="section-note safety-after-note">Талаптарды сақтаңыз. Қауіпті жағдай байқалса, жұмысты тоқтатып, шеберге хабарлаңыз.</p>`);
   };
   window.continueToRounds=function(){baseSafetyGo('wells')};
 
