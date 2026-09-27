@@ -1,5 +1,5 @@
-const CACHE='tq93-pwa-20260927e';
-const APP_FILES=['./','index.html','manifest.webmanifest','favicon.svg','styles.css','journal.css','suggestions.css','notifications.css','safety-notice.css','app.js','passport-data.js','map-data.js','shift-journal-data.js','suggestions.js','notifications.js','safety-notice.js'];
+const CACHE='tq93-pwa-20260927f';
+const APP_FILES=['./','index.html','manifest.webmanifest','favicon.svg','styles.css','journal.css','suggestions.css','notifications.css','safety-notice.css','well-management.css','app.js','passport-data.js','map-data.js','shift-journal-data.js','suggestions.js','notifications.js','safety-notice.js','well-management.js'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(APP_FILES)).then(()=>self.skipWaiting()));
