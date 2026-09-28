@@ -14,21 +14,14 @@
 
   diagram=function(){
     const catalog=read().filter(item=>item.active!==false);
-    shell(`<h1>ТҚ-93 сызбалары</h1><p class="muted">Қажетті сызбаны ашып, үлкейтіп қарауға болады.</p>${catalog.map(item=>`<article class="card well" onclick="openScheme('${html(item.id)}')"><div class="row"><div><div class="well-id">${html(item.title)}</div><div class="muted">${html(item.caption)}</div></div><span class="pill">Ашу</span></div></article>`).join('')||'<div class="empty">Қазір көрсетілетін сызба жоқ.</div>'}`);
+    shell(`<h1>ТҚ-93 сызбалары</h1><p class="muted">Қажетті сызбаны ашып, үлкейтіп қарауға болады.</p>${user?.role==='author'?'<button class="secondary wide" style="margin:4px 0 14px" onclick="openDiagramManager()">▧ Сызбаларды басқару</button>':''}${catalog.map(item=>`<article class="card well" onclick="openScheme('${html(item.id)}')"><div class="row"><div><div class="well-id">${html(item.title)}</div><div class="muted">${html(item.caption)}</div></div><span class="pill">Ашу</span></div></article>`).join('')||'<div class="empty">Қазір көрсетілетін сызба жоқ.</div>'}`);
   };
   openScheme=function(id){selectedScheme=id;schemeZoom=1;page='scheme';render()};
   scheme=function(){
     const config=find(selectedScheme)||read().find(item=>item.active!==false)||defaults[0];
-    shell(`<button class="secondary" onclick="go('diagram')">← Сызбалар</button><h1>${html(config.title)}</h1><p class="muted">${html(config.caption)}</p><div class="row"><span class="section-note">Үлкейту үшін + / − басыңыз</span><div class="zoom"><button class="secondary" onclick="schemeZoom=Math.max(.8,schemeZoom-.2);render()">−</button><button class="secondary" onclick="schemeZoom=Math.min(2.4,schemeZoom+.2);render()">+</button></div></div><div class="map-viewport"><div class="route-map-canvas" style="width:${Math.max(920,Math.round(920*schemeZoom))}px"><img src="${html(config.src)}" alt="${html(config.title)}"/></div></div>${config.id==='pumpjack'?`<details class="card diagram-reference"><summary>Нөмірленген бөлшектер тізімі</summary><div class="diagram-parts">${parts.map(part=>`<div class="diagram-part">${html(part)}</div>`).join('')}</div></details>`:''}<p class="section-note" style="margin:16px 4px 34px;line-height:1.5">Сызбаны саусақпен жылжытып толық қарап шығыңыз.</p>`);
+    shell(`<button class="secondary" onclick="go('diagram')">← Сызбалар</button><h1>${html(config.title)}</h1><p class="muted">${html(config.caption)}</p><div class="row"><span class="section-note">Үлкейту үшін + / − басыңыз</span><div class="zoom"><button class="secondary" onclick="schemeZoom=Math.max(.8,schemeZoom-.2);render()">−</button><button class="secondary" onclick="schemeZoom=Math.min(2.4,schemeZoom+.2);render()">+</button></div></div><div class="map-viewport"><div class="route-map-canvas" style="width:${Math.max(920,Math.round(920*schemeZoom))}px"><img src="${html(config.src)}" alt="${html(config.title)}"/></div></div>${config.id==='pumpjack'?`<details class="card diagram-reference"><summary>Нөмірленген бөлшектер тізімі</summary><div class="diagram-parts">${(config.parts||parts).map(part=>`<div class="diagram-part">${html(part)}</div>`).join('')}</div></details>`:''}<p class="section-note" style="margin:16px 4px 34px;line-height:1.5">Сызбаны саусақпен жылжытып толық қарап шығыңыз.</p>`);
   };
 
-  const priorAuthorPage=window.openAuthorSuggestions;
-  window.openAuthorSuggestions=function(){
-    priorAuthorPage?.apply(this,arguments);
-    if(user?.role!=='author'||document.querySelector('.diagram-admin-launch'))return;
-    const target=document.querySelector('.safety-admin-launch')||document.querySelector('.author-access');
-    target?.insertAdjacentHTML('afterend','<button class="secondary wide diagram-admin-launch" onclick="openDiagramManager()">▧ Сызбаларды басқару</button>');
-  };
   window.openDiagramManager=function(){
     if(user?.role!=='author')return;
     const catalog=read();
@@ -38,7 +31,7 @@
   window.openDiagramEditor=function(id){
     if(user?.role!=='author')return;
     const current=id?find(id):null;
-    shell(`<button class="secondary" onclick="openDiagramManager()">← Тізімге</button><h1>${current?'Сызбаны өзгерту':'Жаңа сызба'}</h1><form id="diagramEditor"><section class="card"><label>Атауы *<input name="title" maxlength="100" required value="${html(current?.title||'')}" /></label><label>Қысқа сипаттама<input name="caption" maxlength="180" value="${html(current?.caption||'')}" /></label><label>Сызба файлы ${current?'(ауыстыру қажет болса ғана)':'*'}<input id="diagramFile" type="file" accept="image/png,image/jpeg,image/webp" ${current?'':'required'} onchange="previewDiagramFile(event)" /></label><p class="diagram-file-note">PNG, JPG немесе WebP. Файл 2 МБ-тан аспасын.</p><img id="diagramPreview" class="diagram-preview ${current?'':'hidden'}" ${current?`src="${html(current.src)}"`:''} alt="Сызба алдын ала қарау" /></section><button class="good wide" type="button" onclick="saveDiagram('${html(id||'')}')">Сақтау</button></form>`);
+    shell(`<button class="secondary" onclick="openDiagramManager()">← Тізімге</button><h1>${current?'Сызбаны өзгерту':'Жаңа сызба'}</h1><form id="diagramEditor"><section class="card"><label>Атауы *<input name="title" maxlength="100" required value="${html(current?.title||'')}" /></label><label>Қысқа сипаттама<input name="caption" maxlength="180" value="${html(current?.caption||'')}" /></label><label>Сызба файлы ${current?'(ауыстыру қажет болса ғана)':'*'}<input id="diagramFile" type="file" accept="image/png,image/jpeg,image/webp" ${current?'':'required'} onchange="previewDiagramFile(event)" /></label><p class="diagram-file-note">PNG, JPG немесе WebP. Файл 2 МБ-тан аспасын.</p><img id="diagramPreview" class="diagram-preview ${current?'':'hidden'}" ${current?`src="${html(current.src)}"`:''} alt="Сызба алдын ала қарау" /></section>${current?.id==='pumpjack'?`<section class="card"><h3>Нөмірленген бөлшектер тізімі</h3><p class="diagram-file-note">Әр жолға бір нөмір мен атауын жазыңыз.</p><textarea name="parts" style="min-height:280px">${html((current.parts||parts).join('\n'))}</textarea></section>`:''}<button class="good wide" type="button" onclick="saveDiagram('${html(id||'')}')">Сақтау</button></form>`);
   };
   window.previewDiagramFile=function(event){
     const file=event.target.files?.[0];if(!file)return;
@@ -51,7 +44,7 @@
     const index=catalog.findIndex(item=>item.id===id);
     if(index<0&&!pendingImage){alert('Сызба файлын таңдаңыз.');return}
     const item=index>=0?catalog[index]:{id:crypto.randomUUID(),active:true,src:pendingImage};
-    item.title=title;item.caption=caption;if(pendingImage)item.src=pendingImage;
+    item.title=title;item.caption=caption;if(item.id==='pumpjack')item.parts=String(data.get('parts')||'').split(/\r?\n/).map(line=>line.trim()).filter(Boolean);if(pendingImage)item.src=pendingImage;
     if(index>=0)catalog[index]=item;else catalog.push(item);
     pendingImage='';save(catalog);openDiagramManager();
   };
