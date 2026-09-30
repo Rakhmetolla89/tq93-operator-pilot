@@ -1,4 +1,4 @@
-const CACHE='tq93-pwa-20260930b';
+const CACHE='tq93-pwa-20260930c';
 const APP_FILES=['./','index.html','manifest.webmanifest','favicon.svg','styles.css','journal.css','suggestions.css','notifications.css','safety-notice.css','well-management.css','diagram-management.css','live-map.css','app.js','passport-data.js','map-data.js','well-coordinates.js','shift-journal-data.js','suggestions.js','notifications.js','safety-notice.js','well-management.js','diagram-management.js','live-map.js'];
 
 self.addEventListener('install',event=>{

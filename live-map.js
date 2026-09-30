@@ -9,7 +9,7 @@
   function initLiveMap(){
     const host=document.querySelector('#liveMap');if(!host||!window.L)return;
     liveMapInstance=L.map(host,{zoomControl:true});
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:20,attribution:'© OpenStreetMap contributors © CARTO'}).addTo(liveMapInstance);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Tiles © Esri'}).addTo(liveMapInstance);
     const entries=Object.entries(coords());
     entries.forEach(([well,point])=>{const marker=L.circleMarker([point.lat,point.lng],{radius:7,color:'#075985',weight:2,fillColor:'#22c55e',fillOpacity:.95}).addTo(liveMapInstance);marker.bindPopup(`<b>№${esc(well)}</b><br><button onclick="openWell('${esc(well)}')">Паспортты ашу</button>`);wellMarkers[well]=marker});
     if(entries.length)liveMapInstance.fitBounds(L.latLngBounds(entries.map(([,p])=>[p.lat,p.lng])).pad(.12));
@@ -29,7 +29,7 @@
   window.startLiveLocation=function(){
     if(!navigator.geolocation){alert('Бұл құрылғы GPS-ті қолдамайды.');return}
     const status=document.querySelector('#liveMapStatus');if(status)status.textContent='GPS рұқсатын растаңыз…';stopLocation();
-    userWatchId=navigator.geolocation.watchPosition(position=>{const latlng=[position.coords.latitude,position.coords.longitude];if(!liveMapInstance)return;if(!userMarker){userMarker=L.marker(latlng,{icon:userIcon()}).addTo(liveMapInstance).bindPopup('Сіздің орныңыз');userAccuracy=L.circle(latlng,{radius:position.coords.accuracy,color:'#237cff',fillColor:'#237cff',fillOpacity:.1,weight:1}).addTo(liveMapInstance);liveMapInstance.setView(latlng,16)}else{userMarker.setLatLng(latlng);userAccuracy.setLatLng(latlng).setRadius(position.coords.accuracy)}if(status)status.textContent=`GPS қосылды · дәлдігі шамамен ${Math.round(position.coords.accuracy)} м`;},{enableHighAccuracy:true,maximumAge:10000,timeout:15000},error=>{if(status)status.textContent=error.code===1?'GPS рұқсаты берілмеді.':'GPS орнын анықтау мүмкін болмады.'});
+    userWatchId=navigator.geolocation.watchPosition(position=>{const latlng=[position.coords.latitude,position.coords.longitude];if(!liveMapInstance)return;if(!userMarker){userMarker=L.marker(latlng,{icon:userIcon()}).addTo(liveMapInstance).bindPopup('Сіздің орныңыз');userAccuracy=L.circle(latlng,{radius:position.coords.accuracy,color:'#237cff',fillColor:'#237cff',fillOpacity:.1,weight:1}).addTo(liveMapInstance);liveMapInstance.setView(latlng,16)}else{userMarker.setLatLng(latlng);userAccuracy.setLatLng(latlng).setRadius(position.coords.accuracy)}if(status)status.textContent=`GPS қосылды · дәлдігі шамамен ${Math.round(position.coords.accuracy)} м`;},error=>{if(status)status.textContent=error.code===1?'GPS рұқсаты берілмеді.':'GPS орнын анықтау мүмкін болмады.'},{enableHighAccuracy:true,maximumAge:10000,timeout:15000});
   };
   window.openRouteMapImage=function(){stopLocation();shell(`<button class="secondary" onclick="go('map')">← GPS карта</button><h1>Маршруттық карта-схема</h1><div class="map-viewport"><div class="route-map-canvas" style="width:920px"><img src="assets/maps/route-map-1.png" alt="ТҚ-93 маршруттық картасы"/></div></div><p class="section-note" style="margin:16px 4px 34px;line-height:1.5">Сызбаны саусақпен жылжытып толық қарап шығыңыз.</p>`)};
 })();
