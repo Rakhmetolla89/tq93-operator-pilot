@@ -9,7 +9,7 @@
   function initLiveMap(){
     const host=document.querySelector('#liveMap');if(!host||!window.L)return;
     liveMapInstance=L.map(host,{zoomControl:true});
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(liveMapInstance);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:20,attribution:'© OpenStreetMap contributors © CARTO'}).addTo(liveMapInstance);
     const entries=Object.entries(coords());
     entries.forEach(([well,point])=>{const marker=L.circleMarker([point.lat,point.lng],{radius:7,color:'#075985',weight:2,fillColor:'#22c55e',fillOpacity:.95}).addTo(liveMapInstance);marker.bindPopup(`<b>№${esc(well)}</b><br><button onclick="openWell('${esc(well)}')">Паспортты ашу</button>`);wellMarkers[well]=marker});
     if(entries.length)liveMapInstance.fitBounds(L.latLngBounds(entries.map(([,p])=>[p.lat,p.lng])).pad(.12));
