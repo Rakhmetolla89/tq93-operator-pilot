@@ -4,6 +4,7 @@
   const defaults=[
     {id:'collectors',title:'Коллекторлар схемасы',caption:'Бас құбырлардың жалпы сызбасы · 2026',src:'assets/collectors-1.png',active:true},
     {id:'gas',title:'Газ құбырлары схемасы',caption:'Газ құбырлары мен пештерді айналу сызбасы',src:'assets/gas-pipelines-1.png',active:true},
+    {id:'route-gu93',title:'Маршруттық карта — ГУ-93',caption:'Операторлардың скважиналарды айналу бағыты',src:'assets/route-map-gu93.png',active:true},
     {id:'pumpjack',title:'Станок-качалка бөлшектері',caption:'Обход кезіндегі жабдық атаулары мен тексеру нүктелері',src:'assets/stanok-kachalka-detali.png',active:true}
   ];
   const read=()=>{try{const saved=JSON.parse(localStorage.getItem(key)||'null');return Array.isArray(saved)?saved:defaults}catch{return defaults}};
